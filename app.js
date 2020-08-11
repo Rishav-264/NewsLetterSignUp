@@ -5,21 +5,21 @@ const mExp = require('mustache-express');
 
 const app = express();
 
-app.engine("mustache",mExp());
+app.engine('mustache',mExp());
 
 app.set('views',__dirname+"/views");
-app.set("view engine","mustache");
+app.set('view engine',"mustache");
 
 app.use(bodyParser.urlencoded({extended:true}));
 
 app.use(express.static('public'));
 
-app.listen(3000, function(){
+app.listen(process.env.PORT || 3000, function(){
     console.log("Server Started at 3000");
 });
 
 app.get('/', function(req,res){
-    res.render('signup');
+    res.render("signup");
 })
 
 
@@ -53,11 +53,11 @@ app.post('/',function(req,res){
     var request = https.request(url,options, function(response){
         response.on("data",function(data){
             console.log("Contact Added");
-            res.render("success");
+            res.render('success');
         })
         response.on("error",function(error){
-            console.log("Not Entered");
-            res.render("failure");
+            console.log(error);
+            res.render('failure')
         })
     })
 
